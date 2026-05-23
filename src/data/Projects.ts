@@ -248,3 +248,49 @@ export const profile = {
     { name: "Canva", icon: "/icons/canva.png" },
   ],
 };
+
+export type Award = {
+  id: string;
+  title: string;
+  issuer: string;
+  year: string;
+  certificate: string;
+};
+
+export const awards: Award[] = [
+  {
+    id: "award-1",
+    title: "1st Place National UI/UX Competition",
+    issuer: "Telkom University Purwokerto",
+    year: "2025",
+    certificate: "/certificates/award-1.jfif",
+  },
+  {
+    id: "award-2",
+    title: "4th Place National UI/UX Competition",
+    issuer: "Prog{r}amming SISO Prasetiya Mulya University",
+    year: "2026",
+    certificate: "/certificates/award-2.jfif",
+  },
+  {
+    id: "award-3",
+    title: "1st Place National Web Redesign Competition",
+    issuer: "Inspirathink, Universitas Ciputra",
+    year: "2026",
+    certificate: "/certificates/award-3.jfif",
+  },
+  {
+    id: "award-4",
+    title: "2nd Place National UI/UX Competition",
+    issuer: "Dies Natalis HMIF Universitas Majalengka",
+    year: "2026",
+    certificate: "/certificates/award-4.jfif",
+  },
+  {
+    id: "award-5",
+    title: "Finalist National UX Competition",
+    issuer: "Find IT! UGM",
+    year: "2026",
+    certificate: "/certificates/award-5.jfif",
+  },
+];

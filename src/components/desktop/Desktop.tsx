@@ -6,7 +6,8 @@ import IconGrid from "./IconGrid";
 import Window from "./Window";
 import ProjectDetail from "./ProjectDetail";
 import { useWindow } from "@/hooks/UseWindow";
-import { projects, profile, Project } from "@/data/Projects";
+import { projects, profile, awards, Project, Award } from "@/data/Projects";
+
 
 export default function Desktop() {
   const { windows, openWindow, closeWindow, updatePosition } = useWindow();
@@ -211,6 +212,42 @@ export default function Desktop() {
           </div>
         );
       default:
+      case "award":
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {awards.map((a) => (
+              <div
+                key={a.id}
+                className="rounded-lg overflow-hidden cursor-pointer"
+                style={{ background: "rgba(255,255,255,0.4)" }}
+              >
+                <div
+                  className="w-full overflow-hidden"
+                  style={{
+                    aspectRatio: "1.414/1",
+                    background: "rgba(255,248,220,0.5)",
+                  }}
+                >
+                  <img
+                    src={a.certificate}
+                    alt={a.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+                {/* Info */}
+                <div className="p-3">
+                  <p className="text-sm font-medium text-gray-800">{a.title}</p>
+                  <p className="text-xs text-gray-500 mt-1">{a.issuer}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{a.year}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
         return null;
     }
   };
@@ -220,6 +257,7 @@ export default function Desktop() {
     graphic: "Graphic Design Projects",
     other: "Other Projects",
     about: "About Me",
+    award: "Awards & Certificates",
   };
 
   return (
