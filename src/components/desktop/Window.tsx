@@ -79,7 +79,7 @@ export default function Window({
         </span>
       </div>
 
-      <div className="p-4 overflow-y-auto" style={{ maxHeight: 560 }}>
+      <div className="p-4 overflow-y-auto" style={{ maxHeight: "calc(80vh - 48px)" }}>
         {children}
       </div>
     </motion.div>

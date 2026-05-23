@@ -1,33 +1,46 @@
 "use client";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Taskbar from "./Taskbar";
 import IconGrid from "./IconGrid";
 import Window from "./Window";
+import ProjectDetail from "./ProjectDetail";
 import { useWindow } from "@/hooks/UseWindow";
-import { projects, profile } from "@/data/Projects";
-
-const windowConfig: Record<string, { title: string; content: React.ReactNode }> = {};
+import { projects, profile, Project } from "@/data/Projects";
 
 export default function Desktop() {
   const { windows, openWindow, closeWindow, updatePosition } = useWindow();
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const getContent = (id: string) => {
     switch (id) {
       case "uiux":
-        return (
+        return activeProject && activeProject.category === "uiux" ? (
+          <ProjectDetail
+            project={activeProject}
+            onBack={() => setActiveProject(null)}
+          />
+        ) : (
           <div className="grid grid-cols-2 gap-3">
             {projects
               .filter((p) => p.category === "uiux")
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg p-3"
+                  className="rounded-lg p-3 cursor-pointer"
                   style={{ background: "rgba(255,255,255,0.4)" }}
+                  onClick={() => setActiveProject(p)}
                 >
                   <div
-                    className="w-full h-24 rounded-md mb-2"
-                    style={{ background: "rgba(77,184,232,0.3)" }}
-                  />
+                    className="w-full h-24 rounded-md mb-2 overflow-hidden"
+                    style={{aspectRatio: "16/9", background: "rgba(77,184,232,0.3)" }}
+                  >
+                    <img
+                      src={p.thumbnail}
+                      alt={p.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
                   <p className="text-sm font-medium text-gray-800">{p.title}</p>
                   <p className="text-xs text-gray-500 mt-1">{p.year}</p>
                 </div>
@@ -47,7 +60,7 @@ export default function Desktop() {
                 >
                   <div
                     className="w-full h-24 rounded-md mb-2"
-                    style={{ background: "rgba(90,181,52,0.3)" }}
+                    style={{ aspectRatio: "16/9", background: "rgba(90,181,52,0.3)" }}
                   />
                   <p className="text-sm font-medium text-gray-800">{p.title}</p>
                   <p className="text-xs text-gray-500 mt-1">{p.year}</p>
@@ -68,7 +81,7 @@ export default function Desktop() {
                 >
                   <div
                     className="w-full h-24 rounded-md mb-2"
-                    style={{ background: "rgba(232,83,122,0.3)" }}
+                    style={{ aspectRatio: "16/9", background: "rgba(232,83,122,0.3)" }}
                   />
                   <p className="text-sm font-medium text-gray-800">{p.title}</p>
                   <p className="text-xs text-gray-500 mt-1">{p.year}</p>
