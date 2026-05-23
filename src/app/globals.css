@@ -8,6 +8,24 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+@keyframes bounce1 {
+  from { height: 6px; }
+  to { height: 14px; }
+}
+@keyframes bounce2 {
+  from { height: 14px; }
+  to { height: 20px; }
+}
+@keyframes bounce3 {
+  from { height: 8px; }
+  to { height: 12px; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 :root {
   --fa-sky: #4db8e8;
   --fa-sky-light: #87ceeb;

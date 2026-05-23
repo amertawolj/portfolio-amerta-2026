@@ -19,8 +19,8 @@ export default function FolderIcon({ label, icon, onClick }: Props) {
       <Image
         src={icon}
         alt={label}
-        width={64}   
-        height={64}  
+        width={94}   
+        height={94}  
         className="drop-shadow-lg"
       />
       <span
