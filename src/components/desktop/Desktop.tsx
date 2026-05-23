@@ -168,7 +168,7 @@ export default function Desktop() {
                 borderTop: "1px solid rgba(0,0,0,0.1)",
                 background: "rgba(255,255,255,0.2)",
                 borderRadius: "12px 12px 12px 12px",
-                padding: "24px 16px",
+                padding: "12px 12px",
                 marginTop: "auto",
               }}
             >

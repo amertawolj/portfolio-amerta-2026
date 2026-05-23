@@ -19,12 +19,12 @@ export default function FolderIcon({ label, icon, onClick }: Props) {
       <Image
         src={icon}
         alt={label}
-        width={96}   // naik dari 64
-        height={96}  // naik dari 64
+        width={64}   
+        height={64}  
         className="drop-shadow-lg"
       />
       <span
-        className="text-sm text-center leading-tight"  // naik dari text-xs
+        className="text-xs text-center leading-tight"
         style={{
           color: "var(--icon-label)",
           textShadow: "var(--icon-label-shadow)",
