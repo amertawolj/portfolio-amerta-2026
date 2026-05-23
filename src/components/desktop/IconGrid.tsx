@@ -21,20 +21,20 @@ const icons = [
     id: "other",
     label: "Other Projects",
     icon: "/icons/folder-other.png",
-    position: { top: "18%", left: "28%" },
+    position: { top: "18%", left: "20%" },
   },
   {
     id: "about",
     label: "About Me",
     icon: "/icons/folder-aboutme.png",
-    position: { top: "60%", left: "20%" },
+    position: { top: "50%", left: "20%" },
   },
 
   {
     id: "awards",
     label: "Awards",
     icon: "/icons/folder-awards.png",
-    position: { top: "50%", left: "40%" },
+    position: { top: "50%", left: "30%" },
   },
 ];
 

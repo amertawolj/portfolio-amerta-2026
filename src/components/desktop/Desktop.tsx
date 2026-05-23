@@ -7,6 +7,10 @@ import Window from "./Window";
 import ProjectDetail from "./ProjectDetail";
 import { useWindow } from "@/hooks/UseWindow";
 import { projects, profile, awards, Project, Award } from "@/data/Projects";
+import MusicWidget from "./MusicWidget";
+import ClockWidget from "./ClockWidget";
+import StickyNote from "./StickyNote";
+import PhotoWidget from "./PhotoWidget";
 
 
 export default function Desktop() {
@@ -270,6 +274,35 @@ export default function Desktop() {
       }}
     >
       <Taskbar />
+
+      <div className="absolute" style={{ top: 64, right: 24 }}>
+        <ClockWidget />
+      </div>
+
+      <div className="absolute" style={{ bottom: 64, right: 24 }}>
+        <MusicWidget />
+      </div>
+
+      <div className="absolute" style={{ top: 80, right: "20%" }}>
+        <StickyNote text="welcome to amerta's personal space!" color="0" />
+      </div>
+
+      <div className="absolute" style={{ bottom: 80, right: "25%" }}>
+        <PhotoWidget
+          src="/photos/cat.jpg"
+          caption="silly car 🐱"
+          rotation={-3}
+        />
+      </div>
+
+      <div className="absolute" style={{ bottom: 140, right: "35%" }}>
+        <PhotoWidget
+          src="/photos/jatinangor.jfif"
+          caption="i miss nangor:(("
+          rotation={2}
+        />
+      </div>
+
       <IconGrid onOpenWindow={openWindow} />
 
       <AnimatePresence>
