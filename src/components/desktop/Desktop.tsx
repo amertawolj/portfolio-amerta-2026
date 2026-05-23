@@ -32,8 +32,8 @@ export default function Desktop() {
                   onClick={() => setActiveProject(p)}
                 >
                   <div
-                    className="w-full h-24 rounded-md mb-2 overflow-hidden"
-                    style={{aspectRatio: "16/9", background: "rgba(77,184,232,0.3)" }}
+                    className="w-full rounded-md mb-2 overflow-hidden"
+                    style={{aspectRatio: "664/280", background: "rgba(77,184,232,0.3)" }}
                   >
                     <img
                       src={p.thumbnail}
