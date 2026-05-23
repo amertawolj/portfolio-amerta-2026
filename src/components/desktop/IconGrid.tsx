@@ -27,7 +27,7 @@ const icons = [
     id: "about",
     label: "About Me",
     icon: "/icons/folder-aboutme.png",
-    position: { top: "50%", left: "20%" },
+    position: { top: "50%", left: "18%" },
   },
 
   {

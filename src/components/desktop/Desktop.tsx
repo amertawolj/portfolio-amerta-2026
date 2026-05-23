@@ -275,19 +275,19 @@ export default function Desktop() {
     >
       <Taskbar />
 
-      <div className="absolute" style={{ top: 64, right: 24 }}>
+      <div className="absolute" style={{ top: 64, right: 24, zIndex: 10 }}>
         <ClockWidget />
       </div>
 
-      <div className="absolute" style={{ bottom: 64, right: 24 }}>
+      <div className="absolute" style={{ top: 50, right: "20%", zIndex: 10 }}>
         <MusicWidget />
       </div>
 
-      <div className="absolute" style={{ top: 80, right: "20%" }}>
+      <div className="absolute" style={{ top: 80, right: "41%", zIndex: 10 }}>
         <StickyNote text="welcome to amerta's personal space!" color="0" />
       </div>
 
-      <div className="absolute" style={{ bottom: 80, right: "25%" }}>
+      <div className="absolute" style={{ bottom: 80, right: "25%", zIndex: 10 }}>
         <PhotoWidget
           src="/photos/cat.jpg"
           caption="silly car 🐱"
@@ -295,7 +295,7 @@ export default function Desktop() {
         />
       </div>
 
-      <div className="absolute" style={{ bottom: 140, right: "35%" }}>
+      <div className="absolute" style={{ bottom: 140, right: "35%", zIndex: 10 }}>
         <PhotoWidget
           src="/photos/jatinangor.jfif"
           caption="i miss nangor:(("

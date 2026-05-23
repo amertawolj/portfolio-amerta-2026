@@ -21,6 +21,11 @@ body {
   to { height: 12px; }
 }
 
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 :root {
   --fa-sky: #4db8e8;
   --fa-sky-light: #87ceeb;
