@@ -14,7 +14,7 @@ export default function FolderIcon({ label, icon, onClick }: Props) {
       className="flex flex-col items-center gap-2 cursor-pointer w-28"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      onDoubleClick={onClick}
+      onClick={onClick}   // ← ganti dari onDoubleClick
     >
       <Image
         src={icon}

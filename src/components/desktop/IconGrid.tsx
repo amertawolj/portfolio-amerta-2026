@@ -1,5 +1,9 @@
 import FolderIcon from "./FolderIcon";
 
+type Props = {
+  onOpenWindow: (id: string) => void;
+};
+
 const icons = [
   {
     id: "uiux",
@@ -34,16 +38,16 @@ const icons = [
   },
 ];
 
-export default function IconGrid() {
+export default function IconGrid({ onOpenWindow }: Props) {
   return (
     <div className="absolute inset-0">
       {icons.map((icon) => (
-        <div
-          key={icon.id}
-          className="absolute"
-          style={icon.position}
-        >
-          <FolderIcon label={icon.label} icon={icon.icon} />
+        <div key={icon.id} className="absolute" style={icon.position}>
+          <FolderIcon
+            label={icon.label}
+            icon={icon.icon}
+            onClick={() => onOpenWindow(icon.id)}
+          />
         </div>
       ))}
     </div>
