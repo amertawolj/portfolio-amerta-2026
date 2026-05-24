@@ -173,9 +173,25 @@ export default function ProjectDetail({ project, onBack }: Props) {
             Open Prototype
           </a>
         )}
-        {project.pitchdeckUrl && (
+        {project.prototypeUrl2 && (
           <a
-            href={project.pitchdeckUrl}
+            href={project.prototypeUrl2}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium"
+            style={{
+              background: "rgba(77,184,232,0.85)",
+              color: "#fff",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <ExternalLink size={14} />
+            Open Prototype Mobile
+          </a>
+        )}
+        {project.projectUrl && (
+          <a
+            href={project.projectUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium"

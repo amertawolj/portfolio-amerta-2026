@@ -9,7 +9,8 @@ export type Project = {
   tools: string[];
   role: string;
   prototypeUrl?: string;
-  pitchdeckUrl?: string;
+  prototypeUrl2?: string;
+  projectUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -17,16 +18,22 @@ export const projects: Project[] = [
     id: "project-1",
     title: "Panenin",
     description:
-      "Panenin is a B2B mobile app designed to empower local farmers by digitalizing the agricultural supply chain. As my first-ever UI/UX project, it holds a special place in my journey. Though far from perfect and filled with areas to improve, creating this app with my team taught me the core principles of empathy-driven design and how technology can be used to solve real-world social issues.",
+      "Panenin is a B2B mobile app designed to empower local farmers by digitalizing the agricultural supply chain. As my first-ever UI/UX project built with my friends (Azza, Naomi, Melvin, and Gifta), it holds a special place in my journey. Though far from perfect and filled with areas to improve, creating this app with my team taught me the core principles of empathy-driven design and how technology can be used to solve real-world social issues.",
     category: "uiux",
     thumbnail: "/projects/project-1/1.png",
     year: "2025",
     images: [
       "/projects/project-1/1.png",
+      "/projects/project-1/15.png",
+      "/projects/project-1/17.png",
+      "/projects/project-1/18.png",
+      "/projects/project-1/19.png",
+      "/projects/project-1/20.png",
+      "/projects/project-1/21.png",
     ],
     tools: ["Figma", "Very First Project:3"],
     role: "UI/UX Designer",
-    prototypeUrl: "https://figma.com",
+    prototypeUrl: "https://www.figma.com/proto/zkbd2ADxcV4EZCZqqKzCrF/PANENin?node-id=407-347&t=a2HSXBjCr54Koz4e-1",
   },
 
   {
@@ -50,10 +57,9 @@ export const projects: Project[] = [
       "/projects/project-2/10.png",
       "/projects/project-2/11.png",
     ],
-    tools: ["Figma", "Indonesi Tourism"],
-    role: "UX Researcher, UI Designer",
-    prototypeUrl: "https://figma.com",
-    pitchdeckUrl: "https://figma.com",
+    tools: ["Figma", "Figjam", "Indonesia Tourism"],
+    role: "UX Researcher, UI Designer, Mobile",
+    prototypeUrl: "https://www.figma.com/proto/B19QvUGLKnlmQnMfWlUChB/UI-UX---TrailIn?node-id=1-3&t=pe7l0RWkHFKclKf5-1",
   },
 
   {
@@ -80,9 +86,8 @@ export const projects: Project[] = [
       "/projects/project-3/13.png",
     ],
     tools: ["Figma", "FigJam"],
-    role: "UX Researcher, UI Designer",
-    prototypeUrl: "https://figma.com",
-    pitchdeckUrl: "https://figma.com",
+    role: "UX Researcher, UI Designer, Mobile, Sustainability",
+    prototypeUrl: "https://www.figma.com/proto/58hqQney7NyWrSf0hKZlnR/UI-UX---PilahIn?node-id=1-2&t=PT8t3DwHqKfAtDc6-1",
   },
 
   {
@@ -108,9 +113,8 @@ export const projects: Project[] = [
       "/projects/project-4/12.png",
     ],
     tools: ["Figma", "FigJam"],
-    role: "UI Designer",
-    prototypeUrl: "https://figma.com",
-    pitchdeckUrl: "https://figma.com",
+    role: "UI Designer, Mobile, UMKM Empowerment",
+    prototypeUrl: "https://www.figma.com/design/7oZmRwqo3iFgluxTTGRrYH/UI-UX---Unma?node-id=5-34&t=TsLCqelYfFEZpwoD-1",
   },
 
   {
@@ -119,16 +123,26 @@ export const projects: Project[] = [
     description:
       "Created for the Inspirathink National UI/UX Competition, this project is a complete revamp of Universitas Ciputra’s official website. Alongside my team, Nisa and Ziza, we analyzed the existing platform, pinpointed its current usability flaws, and conducted targeted user research to gather valuable user insights. Transforming these insights into design solutions, we successfully redesigned the website to be more intuitive, user-friendly, and visually engaging. Our collaborative effort proudly achieved 1st Place at the 2026 Inspirathink National UI/UX Competition by Universitas Ciputra.",
     category: "uiux",
-    thumbnail: "/thumbnails/placeholder.jpg",
+    thumbnail: "/thumbnails/uco.png",
     year: "2026",
     images: [
-      "/projects/project-2/1.jpg",
-      "/projects/project-2/2.jpg",
+      "/projects/project-5/1.png",
+      "/projects/project-5/2.png",
+      "/projects/project-5/3.png",
+      "/projects/project-5/4.png",
+      "/projects/project-5/5.png",
+      "/projects/project-5/6.png",
+      "/projects/project-5/7.png",
+      "/projects/project-5/8.png",
+      "/projects/project-5/9.png",
+      "/projects/project-5/10.png",
+      "/projects/project-5/11.png",
+      "/projects/project-5/12.png",
     ],
     tools: ["Figma", "FigJam"],
-    role: "UX Researcher, UI Designer",
-    prototypeUrl: "https://figma.com",
-    pitchdeckUrl: "https://figma.com",
+    role: "UX Researcher, UI Designer, Mobile, Web",
+    prototypeUrl: "https://www.figma.com/design/7lPVte6UCPPDIIGMFWODjM/UI-UX---UC-Web?node-id=1-3&t=AJBwoIGfUK1qSWuo-1",
+    prototypeUrl2: "https://www.figma.com/proto/7lPVte6UCPPDIIGMFWODjM/UI-UX---UC-Web?node-id=25-2&t=AJBwoIGfUK1qSWuo-1",
   },
 
   {
@@ -155,9 +169,8 @@ export const projects: Project[] = [
       "/projects/project-6/13.png",
     ],
     tools: ["Figma", "FigJam"],
-    role: "UX Researcher, UI Designer",
-    prototypeUrl: "https://figma.com",
-    pitchdeckUrl: "https://figma.com",
+    role: "UX Researcher, UI Designer, Mobile, AI Powered App",
+    prototypeUrl: "https://www.figma.com/proto/mYLXq5XkafQPf0z8EGy5X7/UI-UX---LockIn?node-id=0-1&t=RL9rxIGqwIglfT1r-1",
   },
 
   {
