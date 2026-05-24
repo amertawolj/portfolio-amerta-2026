@@ -1,22 +1,40 @@
 "use client";
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import Taskbar from "./Taskbar";
 import IconGrid from "./IconGrid";
 import Window from "./Window";
 import ProjectDetail from "./ProjectDetail";
-import { useWindow } from "@/hooks/UseWindow";
+import MobileIconGrid from "@/components/mobile/MobileIconGrid";
+import MobileClockWidget from "@/components/mobile/MobileClockWidget";
+import ClockWidget from "@/components/widgets/ClockWidget";
+import MusicWidget from "@/components/widgets/MusicWidget";
+import StickyNote from "@/components/widgets/StickyNote";
+import PhotoWidget from "@/components/widgets/PhotoWidget";
+import SocialDock from "@/components/widgets/SocialDock";
 import { projects, profile, awards, Project } from "@/data/Projects";
-import MusicWidget from "./MusicWidget";
-import ClockWidget from "./ClockWidget";
-import StickyNote from "./StickyNote";
-import PhotoWidget from "./PhotoWidget";
-import SocialDock from "./SocialDock";
+import { useWindow } from "@/hooks/UseWindow";
+import { useState } from "react";
+import { useMobile } from "@/hooks/UseMobile";
+import { AnimatePresence } from "framer-motion";
+
 
 export default function Desktop() {
   const { windows, openWindow, closeWindow, updatePosition } = useWindow();
   const [activeUiux, setActiveUiux] = useState<Project | null>(null);
   const [activeGraphic, setActiveGraphic] = useState<Project | null>(null);
+  const isMobile = useMobile();
+
+  if (isMobile === null) return (
+    <main
+      className="relative w-screen h-screen overflow-hidden"
+      style={{
+        backgroundImage: "url('/wallpaper-desktop.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Taskbar />
+    </main>
+  );
 
   const getContent = (id: string) => {
     switch (id) {
@@ -338,53 +356,67 @@ export default function Desktop() {
     >
       <Taskbar />
 
-      <div className="absolute" style={{ top: 64, right: 24, zIndex: 10 }}>
-        <ClockWidget />
-      </div>
+      {!isMobile ? (
+        // DESKTOP
+        <>
+          <div className="absolute" style={{ top: 64, right: 24, zIndex: 10 }}>
+            <ClockWidget />
+          </div>
+          <div className="absolute" style={{ top: 50, right: "20%", zIndex: 10 }}>
+            <MusicWidget />
+          </div>
+          <div className="absolute" style={{ top: 80, right: "41%", zIndex: 10 }}>
+            <StickyNote text="welcome to amerta's personal space!" color="0" />
+          </div>
+          <div className="absolute" style={{ bottom: 80, right: "25%", zIndex: 10 }}>
+            <PhotoWidget src="/photos/cat.jpg" caption="silly car 🐱" rotation={-3} />
+          </div>
+          <div className="absolute" style={{ bottom: 140, right: "35%", zIndex: 10 }}>
+            <PhotoWidget src="/photos/jatinangor.jfif" caption="i miss nangor:((" rotation={2} />
+          </div>
+          <IconGrid onOpenWindow={openWindow} />
+        </>
+      ) : (
+        // MOBILE
+        // MOBILE
+        <div
+          className="flex flex-col"
+          style={{ paddingTop: 52, paddingBottom: 120, height: "100%", overflow: "auto" }}
+        >
+          {/* Icon Grid — paling atas */}
+          <div className="flex justify-center px-6 py-4">
+            <MobileIconGrid onOpenWindow={openWindow} />
+          </div>
 
-      <div className="absolute" style={{ top: 50, right: "20%", zIndex: 10 }}>
-        <MusicWidget />
-      </div>
+          {/* Top widgets — clock + music */}
+          <div className="flex items-start justify-between px-4 gap-3">
+            <MobileClockWidget />
+            <MusicWidget compact />
+          </div>
 
-      <div className="absolute" style={{ top: 80, right: "41%", zIndex: 10 }}>
-        <StickyNote text="welcome to amerta's personal space!" color="0" />
-      </div>
-
-      <div className="absolute" style={{ bottom: 80, right: "25%", zIndex: 10 }}>
-        <PhotoWidget
-          src="/photos/cat.jpg"
-          caption="silly car 🐱"
-          rotation={-3}
-        />
-      </div>
-
-      <div className="absolute" style={{ bottom: 140, right: "35%", zIndex: 10 }}>
-        <PhotoWidget
-          src="/photos/jatinangor.jfif"
-          caption="i miss nangor:(("
-          rotation={2}
-        />
-      </div>
+          {/* Photos */}
+          <div className="flex justify-center gap-4 px-4 py-2">
+            <PhotoWidget src="/photos/cat.jpg" caption="silly car 🐱" rotation={-3} size="small" />
+            <PhotoWidget src="/photos/jatinangor.jfif" caption="i miss nangor:((" rotation={2} size="small" />
+          </div>
+        </div>
+      )}
 
       <SocialDock />
 
-      <IconGrid onOpenWindow={openWindow} />
-
       <AnimatePresence>
-        {windows
-          .filter((w) => w.isOpen)
-          .map((w) => (
-            <Window
-              key={w.id}
-              id={w.id}
-              title={windowTitles[w.id] || w.id}
-              position={w.position}
-              onClose={() => closeWindow(w.id)}
-              onUpdatePosition={updatePosition}
-            >
-              {getContent(w.id)}
-            </Window>
-          ))}
+        {windows.filter((w) => w.isOpen).map((w) => (
+          <Window
+            key={w.id}
+            id={w.id}
+            title={windowTitles[w.id] || w.id}
+            position={w.position}
+            onClose={() => closeWindow(w.id)}
+            onUpdatePosition={updatePosition}
+          >
+            {getContent(w.id)}
+          </Window>
+        ))}
       </AnimatePresence>
     </main>
   );
