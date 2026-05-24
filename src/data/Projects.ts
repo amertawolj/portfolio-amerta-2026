@@ -212,7 +212,7 @@ export const projects: Project[] = [
   {
     id: "project-11",
     title: "Panenin Mobile App",
-    description: "Collection of digital illustrations made for fun.",
+    description: "Very first mobile app project i've done with my friends for college assignment.",
     category: "other",
     thumbnail: "/projects/project-1/1.png",
     year: "2025",
@@ -225,7 +225,7 @@ export const projects: Project[] = [
   {
     id: "project-12",
     title: "Plugndd Front End Web",
-    description: "Collection of digital illustrations made for fun.",
+    description: "Front end website for PLUGNN Brand's DNA i've done with my teamgit .",
     category: "other",
     thumbnail: "/thumbnails/plugndd.png",
     year: "2026",
@@ -238,7 +238,7 @@ export const projects: Project[] = [
   {
     id: "project-13",
     title: "SIMP (Sistem Informasi Monitoring Produksi) Desktop App",
-    description: "Collection of digital illustrations made for fun.",
+    description: "Desktop application for DRPL college assignment i've done with my friends.",
     category: "other",
     thumbnail: "/thumbnails/simp.png",
     year: "2026",
