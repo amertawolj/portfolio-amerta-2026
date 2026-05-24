@@ -6,7 +6,7 @@ const socials = [
     id: "linkedin",
     label: "LinkedIn",
     icon: "/icons/linkedin.png",
-    url: "www.linkedin.com/in/wa-ode-amerta-lambelu-jamaluddin",
+    url: "https://www.linkedin.com/in/wa-ode-amerta-lambelu-jamaluddin",
   },
   {
     id: "instagram",
@@ -18,7 +18,7 @@ const socials = [
     id: "email",
     label: "Email",
     icon: "/icons/email.png",
-    url: "mailto:waodeamerta1@gmail.com",
+    url: "https://mail.google.com/mail/?view=cm&to=waodeamerta1@gmail.com",
   },
   {
     id: "cv",
@@ -45,7 +45,7 @@ export default function SocialDock() {
         <motion.a
           key={s.id}
           href={s.url}
-          target={s.id === "email" ? "_self" : "_blank"}
+          target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1"
           whileHover={{ scale: 1.25, y: -8 }}
