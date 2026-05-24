@@ -1,5 +1,5 @@
 "use client";
-import FolderIcon from "./FolderIcon";
+import FolderIcon from "@/components/shared/FolderIcon";
 
 type Props = {
   onOpenWindow: (id: string) => void;

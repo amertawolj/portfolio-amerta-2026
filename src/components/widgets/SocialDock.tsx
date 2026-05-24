@@ -6,7 +6,7 @@ const socials = [
     id: "linkedin",
     label: "LinkedIn",
     icon: "/icons/linkedin.png",
-    url: "www.linkedin.com/in/wa-ode-amerta-lambelu-jamaluddin",
+    url: "https://www.linkedin.com/in/wa-ode-amerta-lambelu-jamaluddin",
   },
   {
     id: "instagram",
@@ -18,7 +18,7 @@ const socials = [
     id: "email",
     label: "Email",
     icon: "/icons/email.png",
-    url: "mailto:waodeamerta1@gmail.com",
+    url: "https://mail.google.com/mail/?view=cm&to=waodeamerta1@gmail.com",
   },
   {
     id: "cv",
@@ -31,8 +31,13 @@ const socials = [
 export default function SocialDock() {
   return (
     <div
-      className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-end gap-6 px-6 py-3"
+      className="absolute bottom-6 flex items-end px-6 py-3"
       style={{
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "calc(100vw - 32px)",
+        maxWidth: 400,  // ← cap di desktop supaya tidak terlalu lebar
+        justifyContent: "space-around",
         background: "rgba(255,255,255,0.2)",
         backdropFilter: "blur(20px)",
         borderRadius: 24,
@@ -45,7 +50,7 @@ export default function SocialDock() {
         <motion.a
           key={s.id}
           href={s.url}
-          target={s.id === "email" ? "_self" : "_blank"}
+          target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1"
           whileHover={{ scale: 1.25, y: -8 }}
@@ -62,6 +67,7 @@ export default function SocialDock() {
               objectFit: "cover",
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
             }}
+            className="md:w-[52px] md:h-[52px] w-[64px] h-[64px]"
           />
           <span
             className="text-xs"

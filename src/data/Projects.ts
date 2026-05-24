@@ -308,6 +308,6 @@ export const awards: Award[] = [
     title: "Finalist National UX Competition",
     issuer: "Find IT! UGM",
     year: "2026",
-    certificate: "/certificates/award-5.jfif",
+    certificate: "/certificates/award-5.png",
   },
 ];
