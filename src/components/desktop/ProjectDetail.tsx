@@ -131,8 +131,8 @@ export default function ProjectDetail({ project, onBack }: Props) {
             key={r}
             className="text-xs px-3 py-1 rounded-full font-medium"
             style={{
-              background: "rgba(77,184,232,0.2)",
-              color: "rgba(26,111,168,1)",
+              background: "rgba(77,184,232,0.2)",   
+              color: "rgba(26,111,168,1)",          
               border: "1px solid rgba(77,184,232,0.4)",
             }}
           >
@@ -203,7 +203,7 @@ export default function ProjectDetail({ project, onBack }: Props) {
             }}
           >
             <ExternalLink size={14} />
-            Open Pitch Deck
+            Open Project
           </a>
         )}
       </div>

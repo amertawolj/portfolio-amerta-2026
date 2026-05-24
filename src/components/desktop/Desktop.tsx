@@ -6,24 +6,25 @@ import IconGrid from "./IconGrid";
 import Window from "./Window";
 import ProjectDetail from "./ProjectDetail";
 import { useWindow } from "@/hooks/UseWindow";
-import { projects, profile, awards, Project, Award } from "@/data/Projects";
+import { projects, profile, awards, Project } from "@/data/Projects";
 import MusicWidget from "./MusicWidget";
 import ClockWidget from "./ClockWidget";
 import StickyNote from "./StickyNote";
 import PhotoWidget from "./PhotoWidget";
-
+import SocialDock from "./SocialDock";
 
 export default function Desktop() {
   const { windows, openWindow, closeWindow, updatePosition } = useWindow();
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeUiux, setActiveUiux] = useState<Project | null>(null);
+  const [activeGraphic, setActiveGraphic] = useState<Project | null>(null);
 
   const getContent = (id: string) => {
     switch (id) {
       case "uiux":
-        return activeProject && activeProject.category === "uiux" ? (
+        return activeUiux ? (
           <ProjectDetail
-            project={activeProject}
-            onBack={() => setActiveProject(null)}
+            project={activeUiux}
+            onBack={() => setActiveUiux(null)}
           />
         ) : (
           <div className="grid grid-cols-2 gap-3">
@@ -32,13 +33,13 @@ export default function Desktop() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg p-3 cursor-pointer"
+                  className="rounded-lg p-3 cursor-pointer hover:opacity-90 transition-opacity"
                   style={{ background: "rgba(255,255,255,0.4)" }}
-                  onClick={() => setActiveProject(p)}
+                  onClick={() => setActiveUiux(p)}
                 >
                   <div
                     className="w-full rounded-md mb-2 overflow-hidden"
-                    style={{aspectRatio: "664/280", background: "rgba(77,184,232,0.3)" }}
+                    style={{ aspectRatio: "664/280", background: "rgba(77,184,232,0.3)" }}
                   >
                     <img
                       src={p.thumbnail}
@@ -52,54 +53,119 @@ export default function Desktop() {
               ))}
           </div>
         );
+
       case "graphic":
-        return (
+        return activeGraphic ? (
+          <ProjectDetail
+            project={activeGraphic}
+            onBack={() => setActiveGraphic(null)}
+          />
+        ) : (
           <div className="grid grid-cols-2 gap-3">
             {projects
               .filter((p) => p.category === "graphic")
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg p-3"
+                  className="rounded-lg p-3 cursor-pointer hover:opacity-90 transition-opacity"
                   style={{ background: "rgba(255,255,255,0.4)" }}
+                  onClick={() => setActiveGraphic(p)}
                 >
                   <div
-                    className="w-full h-24 rounded-md mb-2"
-                    style={{ aspectRatio: "16/9", background: "rgba(90,181,52,0.3)" }}
-                  />
+                    className="w-full rounded-md mb-2 overflow-hidden"
+                    style={{ aspectRatio: "664/280", background: "rgba(90,181,52,0.3)" }}
+                  >
+                    <img
+                      src={p.thumbnail}
+                      alt={p.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
                   <p className="text-sm font-medium text-gray-800">{p.title}</p>
                   <p className="text-xs text-gray-500 mt-1">{p.year}</p>
                 </div>
               ))}
           </div>
         );
+
       case "other":
         return (
           <div className="grid grid-cols-2 gap-3">
             {projects
               .filter((p) => p.category === "other")
               .map((p) => (
-                <div
+                <a
                   key={p.id}
-                  className="rounded-lg p-3"
-                  style={{ background: "rgba(255,255,255,0.4)" }}
+                  href={p.projectUrl ?? "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg p-3 cursor-pointer hover:opacity-90 transition-opacity block"
+                  style={{ background: "rgba(255,255,255,0.4)", textDecoration: "none" }}
                 >
+                  {/* Thumbnail */}
                   <div
-                    className="w-full h-24 rounded-md mb-2"
-                    style={{ aspectRatio: "16/9", background: "rgba(232,83,122,0.3)" }}
-                  />
-                  <p className="text-sm font-medium text-gray-800">{p.title}</p>
-                  <p className="text-xs text-gray-500 mt-1">{p.year}</p>
-                </div>
+                    className="w-full rounded-md mb-3 overflow-hidden"
+                    style={{ aspectRatio: "664/280", background: "rgba(232,83,122,0.3)" }}
+                  >
+                    <img
+                      src={p.thumbnail}
+                      alt={p.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
+
+                  {/* Title + Year */}
+                  <div className="flex items-start justify-between mb-1">
+                    <p className="text-sm font-medium text-gray-800">{p.title}</p>
+                    <p className="text-xs text-gray-400 flex-shrink-0 ml-2">{p.year}</p>
+                  </div>
+
+                  {/* Description */}
+                  <p
+                    className="text-xs leading-relaxed mb-2 line-clamp-2"
+                    style={{ color: "rgba(0,0,0,0.55)" }}
+                  >
+                    {p.description}
+                  </p>
+
+                  {/* Chips */}
+                  <div className="flex flex-wrap gap-1">
+                    {p.role.split(",").map((r) => (
+                      <span
+                        key={r}
+                        className="text-xs px-2 py-0.5 rounded-full font-medium"
+                        style={{
+                          background: "rgba(77,184,232,0.2)",
+                          color: "rgba(26,111,168,1)",
+                          border: "1px solid rgba(77,184,232,0.4)",
+                        }}
+                      >
+                        {r.trim()}
+                      </span>
+                    ))}
+                    {p.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="text-xs px-2 py-0.5 rounded-full"
+                        style={{
+                          background: "rgba(255,255,255,0.5)",
+                          color: "rgba(0,0,0,0.5)",
+                          border: "1px solid rgba(0,0,0,0.1)",
+                        }}
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </a>
               ))}
           </div>
         );
+
       case "about":
         return (
           <div className="flex flex-col" style={{ minHeight: 380 }}>
-            {/* Top Section */}
             <div className="flex" style={{ minHeight: 340 }}>
-              {/* Photo */}
               <div
                 className="flex-shrink-0"
                 style={{
@@ -122,12 +188,10 @@ export default function Desktop() {
                 />
               </div>
 
-              {/* Info */}
               <div
                 className="flex flex-col justify-center gap-4 p-6"
                 style={{ flex: 1 }}
               >
-                {/* Name */}
                 <div>
                   <p
                     className="text-xs uppercase tracking-widest mb-1"
@@ -143,7 +207,6 @@ export default function Desktop() {
                   </h2>
                 </div>
 
-                {/* Role + Place */}
                 <div className="flex gap-8">
                   <div>
                     <p
@@ -169,7 +232,6 @@ export default function Desktop() {
                   </div>
                 </div>
 
-                {/* Bio */}
                 <p
                   className="text-sm leading-relaxed"
                   style={{ color: "rgba(0,0,0,0.7)" }}
@@ -179,14 +241,12 @@ export default function Desktop() {
               </div>
             </div>
 
-            {/* Bottom — Tools */}
             <div
-              className="flex flex-col items-center gap-3 py-6"
+              className="flex flex-col items-center gap-3"
               style={{
                 borderTop: "1px solid rgba(0,0,0,0.1)",
                 background: "rgba(255,255,255,0.2)",
-                borderRadius: "12px 12px 12px 12px",
-                padding: "12px 12px",
+                padding: "16px 12px",
                 marginTop: "auto",
               }}
             >
@@ -215,14 +275,14 @@ export default function Desktop() {
             </div>
           </div>
         );
-      default:
+
       case "award":
         return (
           <div className="grid grid-cols-2 gap-4">
             {awards.map((a) => (
               <div
                 key={a.id}
-                className="rounded-lg overflow-hidden cursor-pointer"
+                className="rounded-lg overflow-hidden"
                 style={{ background: "rgba(255,255,255,0.4)" }}
               >
                 <div
@@ -242,7 +302,6 @@ export default function Desktop() {
                     }}
                   />
                 </div>
-                {/* Info */}
                 <div className="p-3">
                   <p className="text-sm font-medium text-gray-800">{a.title}</p>
                   <p className="text-xs text-gray-500 mt-1">{a.issuer}</p>
@@ -252,6 +311,8 @@ export default function Desktop() {
             ))}
           </div>
         );
+
+      default:
         return null;
     }
   };
@@ -302,6 +363,8 @@ export default function Desktop() {
           rotation={2}
         />
       </div>
+
+      <SocialDock />
 
       <IconGrid onOpenWindow={openWindow} />
 
