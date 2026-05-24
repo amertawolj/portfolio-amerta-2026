@@ -31,7 +31,7 @@ const socials = [
 export default function SocialDock() {
   return (
     <div
-      className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-end gap-6 px-6 py-3"
+      className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-end gap-6 px-6 py-3"
       style={{
         background: "rgba(255,255,255,0.2)",
         backdropFilter: "blur(20px)",
