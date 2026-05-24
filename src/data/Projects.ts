@@ -262,6 +262,7 @@ export const profile = {
     { name: "Figma", icon: "/icons/figma.png" },
     { name: "Next.js", icon: "/icons/next.png" },
     { name: "Canva", icon: "/icons/canva.png" },
+    { name: "Git", icon: "/icons/git.png" },
   ],
 };
 

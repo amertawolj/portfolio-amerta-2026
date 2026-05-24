@@ -54,6 +54,7 @@ export default function Desktop() {
           </div>
         );
 
+      /*  
       case "graphic":
         return activeGraphic ? (
           <ProjectDetail
@@ -87,6 +88,7 @@ export default function Desktop() {
               ))}
           </div>
         );
+      */
 
       case "other":
         return (
@@ -320,7 +322,7 @@ export default function Desktop() {
   const windowTitles: Record<string, string> = {
     uiux: "UI/UX Projects",
     graphic: "Graphic Design Projects",
-    other: "Other Projects",
+    other: "Software Projects",
     about: "About Me",
     award: "Awards & Certificates",
   };
