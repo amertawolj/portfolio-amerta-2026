@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: "Portfolio Amerta 2026",
+  title: "Amerta's Portfolio",
   description: "UI/UX & Graphic Design Portfolio",
 };
 
@@ -13,7 +14,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="overflow-hidden">{children}</body>
+      <body
+        className="overflow-hidden"
+        style={{ fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif" }}
+      >
+        {children}
+        <Analytics /> 
+      </body>
     </html>
   );
 }
