@@ -1,4 +1,5 @@
 "use client";
+import { createPortal } from "react-dom";
 import Taskbar from "./Taskbar";
 import IconGrid from "./IconGrid";
 import Window from "./Window";
@@ -12,29 +13,36 @@ import PhotoWidget from "@/components/widgets/PhotoWidget";
 import SocialDock from "@/components/widgets/SocialDock";
 import { projects, profile, awards, Project } from "@/data/Projects";
 import { useWindow } from "@/hooks/UseWindow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMobile } from "@/hooks/UseMobile";
 import { AnimatePresence } from "framer-motion";
-
+import AboutMeContent from "@/components/shared/AboutMeContent";
+import LoadingScreen from "@/components/shared/LoadingScreen";
 
 export default function Desktop() {
   const { windows, openWindow, closeWindow, updatePosition } = useWindow();
   const [activeUiux, setActiveUiux] = useState<Project | null>(null);
   const [activeGraphic, setActiveGraphic] = useState<Project | null>(null);
   const isMobile = useMobile();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const [booting, setBooting] = useState(true);
 
-  if (isMobile === null) return (
-    <main
-      className="relative w-screen h-screen overflow-hidden"
-      style={{
-        backgroundImage: "url('/wallpaper-desktop.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <Taskbar />
-    </main>
-  );
+  if (booting) return <LoadingScreen onDone={() => setBooting(false)} />;
+  
+  if (isMobile === null)
+    return (
+      <main
+        className="relative w-screen h-screen overflow-hidden"
+        style={{
+          backgroundImage: "url('/wallpaper-desktop.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Taskbar />
+      </main>
+    );
 
   const getContent = (id: string) => {
     switch (id) {
@@ -57,12 +65,19 @@ export default function Desktop() {
                 >
                   <div
                     className="w-full rounded-md mb-2 overflow-hidden"
-                    style={{ aspectRatio: "664/280", background: "rgba(77,184,232,0.3)" }}
+                    style={{
+                      aspectRatio: "664/280",
+                      background: "rgba(77,184,232,0.3)",
+                    }}
                   >
                     <img
                       src={p.thumbnail}
                       alt={p.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
                   <p className="text-sm font-medium text-gray-800">{p.title}</p>
@@ -71,42 +86,6 @@ export default function Desktop() {
               ))}
           </div>
         );
-
-      /*  
-      case "graphic":
-        return activeGraphic ? (
-          <ProjectDetail
-            project={activeGraphic}
-            onBack={() => setActiveGraphic(null)}
-          />
-        ) : (
-          <div className="grid grid-cols-2 gap-3">
-            {projects
-              .filter((p) => p.category === "graphic")
-              .map((p) => (
-                <div
-                  key={p.id}
-                  className="rounded-lg p-3 cursor-pointer hover:opacity-90 transition-opacity"
-                  style={{ background: "rgba(255,255,255,0.4)" }}
-                  onClick={() => setActiveGraphic(p)}
-                >
-                  <div
-                    className="w-full rounded-md mb-2 overflow-hidden"
-                    style={{ aspectRatio: "664/280", background: "rgba(90,181,52,0.3)" }}
-                  >
-                    <img
-                      src={p.thumbnail}
-                      alt={p.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  </div>
-                  <p className="text-sm font-medium text-gray-800">{p.title}</p>
-                  <p className="text-xs text-gray-500 mt-1">{p.year}</p>
-                </div>
-              ))}
-          </div>
-        );
-      */
 
       case "other":
         return (
@@ -120,35 +99,42 @@ export default function Desktop() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg p-3 cursor-pointer hover:opacity-90 transition-opacity block"
-                  style={{ background: "rgba(255,255,255,0.4)", textDecoration: "none" }}
+                  style={{
+                    background: "rgba(255,255,255,0.4)",
+                    textDecoration: "none",
+                  }}
                 >
-                  {/* Thumbnail */}
                   <div
                     className="w-full rounded-md mb-3 overflow-hidden"
-                    style={{ aspectRatio: "664/280", background: "rgba(232,83,122,0.3)" }}
+                    style={{
+                      aspectRatio: "664/280",
+                      background: "rgba(232,83,122,0.3)",
+                    }}
                   >
                     <img
                       src={p.thumbnail}
                       alt={p.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
-
-                  {/* Title + Year */}
                   <div className="flex items-start justify-between mb-1">
-                    <p className="text-sm font-medium text-gray-800">{p.title}</p>
-                    <p className="text-xs text-gray-400 flex-shrink-0 ml-2">{p.year}</p>
+                    <p className="text-sm font-medium text-gray-800">
+                      {p.title}
+                    </p>
+                    <p className="text-xs text-gray-400 shrink-0 ml-2">
+                      {p.year}
+                    </p>
                   </div>
-
-                  {/* Description */}
                   <p
                     className="text-xs leading-relaxed mb-2 line-clamp-2"
                     style={{ color: "rgba(0,0,0,0.55)" }}
                   >
                     {p.description}
                   </p>
-
-                  {/* Chips */}
                   <div className="flex flex-wrap gap-1">
                     {p.role.split(",").map((r) => (
                       <span
@@ -183,118 +169,7 @@ export default function Desktop() {
         );
 
       case "about":
-        return (
-          <div className="flex flex-col" style={{ minHeight: 380 }}>
-            <div className="flex" style={{ minHeight: 340 }}>
-              <div
-                className="flex-shrink-0"
-                style={{
-                  width: 240,
-                  height: 320,
-                  borderRadius: 12,
-                  background: "rgba(200,200,200,0.2)",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src={profile.photo}
-                  alt={profile.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                  }}
-                />
-              </div>
-
-              <div
-                className="flex flex-col justify-center gap-4 p-6"
-                style={{ flex: 1 }}
-              >
-                <div>
-                  <p
-                    className="text-xs uppercase tracking-widest mb-1"
-                    style={{ color: "rgba(0,0,0,0.45)" }}
-                  >
-                    Name
-                  </p>
-                  <h2
-                    className="font-bold leading-tight"
-                    style={{ fontSize: 22, color: "#1a1a1a" }}
-                  >
-                    {profile.name}
-                  </h2>
-                </div>
-
-                <div className="flex gap-8">
-                  <div>
-                    <p
-                      className="text-xs uppercase tracking-widest mb-1"
-                      style={{ color: "rgba(0,0,0,0.45)" }}
-                    >
-                      Role
-                    </p>
-                    <p className="font-bold text-sm" style={{ color: "#1a1a1a" }}>
-                      {profile.role}
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      className="text-xs uppercase tracking-widest mb-1"
-                      style={{ color: "rgba(0,0,0,0.45)" }}
-                    >
-                      Place
-                    </p>
-                    <p className="font-bold text-sm" style={{ color: "#1a1a1a" }}>
-                      {profile.place}
-                    </p>
-                  </div>
-                </div>
-
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "rgba(0,0,0,0.7)" }}
-                >
-                  {profile.bio}
-                </p>
-              </div>
-            </div>
-
-            <div
-              className="flex flex-col items-center gap-3"
-              style={{
-                borderTop: "1px solid rgba(0,0,0,0.1)",
-                background: "rgba(255,255,255,0.2)",
-                padding: "16px 12px",
-                marginTop: "auto",
-              }}
-            >
-              <p
-                className="text-xs uppercase tracking-widest"
-                style={{ color: "rgba(0,0,0,0.45)" }}
-              >
-                Software & Framework Used
-              </p>
-              <div className="flex gap-4">
-                {profile.tools.map((tool) => (
-                  <div key={tool.name} className="flex flex-col items-center gap-1">
-                    <img
-                      src={tool.icon}
-                      alt={tool.name}
-                      style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 12,
-                        objectFit: "contain",
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
+        return <AboutMeContent />;
 
       case "award":
         return (
@@ -346,78 +221,123 @@ export default function Desktop() {
   };
 
   return (
-    <main
-      className="relative w-screen h-screen overflow-hidden"
-      style={{
-        backgroundImage: "url('/wallpaper-desktop.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <Taskbar />
+    <>
+      <main
+        className="relative w-screen h-screen overflow-hidden"
+        style={{
+          backgroundImage: "url('/wallpaper-desktop.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Taskbar />
 
-      {!isMobile ? (
-        // DESKTOP
-        <>
-          <div className="absolute" style={{ top: 64, right: 24, zIndex: 10 }}>
-            <ClockWidget />
-          </div>
-          <div className="absolute" style={{ top: 50, right: "20%", zIndex: 10 }}>
-            <MusicWidget />
-          </div>
-          <div className="absolute" style={{ top: 80, right: "41%", zIndex: 10 }}>
-            <StickyNote text="welcome to amerta's personal space!" color="0" />
-          </div>
-          <div className="absolute" style={{ bottom: 80, right: "25%", zIndex: 10 }}>
-            <PhotoWidget src="/photos/cat.jpg" caption="silly car 🐱" rotation={-3} />
-          </div>
-          <div className="absolute" style={{ bottom: 140, right: "35%", zIndex: 10 }}>
-            <PhotoWidget src="/photos/jatinangor.jfif" caption="i miss nangor:((" rotation={2} />
-          </div>
-          <IconGrid onOpenWindow={openWindow} />
-        </>
-      ) : (
-        // MOBILE
-        // MOBILE
-        <div
-          className="flex flex-col"
-          style={{ paddingTop: 52, paddingBottom: 120, height: "100%", overflow: "auto" }}
-        >
-          {/* Icon Grid — paling atas */}
-          <div className="flex justify-center px-6 py-4">
-            <MobileIconGrid onOpenWindow={openWindow} />
-          </div>
-
-          {/* Top widgets — clock + music */}
-          <div className="flex items-start justify-between px-4 gap-3">
-            <MobileClockWidget />
-            <MusicWidget compact />
-          </div>
-
-          {/* Photos */}
-          <div className="flex justify-center gap-4 px-4 py-2">
-            <PhotoWidget src="/photos/cat.jpg" caption="silly car 🐱" rotation={-3} size="small" />
-            <PhotoWidget src="/photos/jatinangor.jfif" caption="i miss nangor:((" rotation={2} size="small" />
-          </div>
-        </div>
-      )}
-
-      <SocialDock />
-
-      <AnimatePresence>
-        {windows.filter((w) => w.isOpen).map((w) => (
-          <Window
-            key={w.id}
-            id={w.id}
-            title={windowTitles[w.id] || w.id}
-            position={w.position}
-            onClose={() => closeWindow(w.id)}
-            onUpdatePosition={updatePosition}
+        {!isMobile ? (
+          // DESKTOP
+          <>
+            <div
+              className="absolute"
+              style={{ top: 64, right: 24, zIndex: 10 }}
+            >
+              <ClockWidget />
+            </div>
+            <div
+              className="absolute"
+              style={{ top: 50, right: "20%", zIndex: 10 }}
+            >
+              <MusicWidget />
+            </div>
+            <div
+              className="absolute"
+              style={{ top: 80, right: "41%", zIndex: 10 }}
+            >
+              <StickyNote
+                text="welcome to amerta's personal space!"
+                color="0"
+              />
+            </div>
+            <div
+              className="absolute"
+              style={{ bottom: 80, right: "25%", zIndex: 10 }}
+            >
+              <PhotoWidget
+                src="/photos/cat.jpg"
+                caption="silly car 🐱"
+                rotation={-3}
+              />
+            </div>
+            <div
+              className="absolute"
+              style={{ bottom: 140, right: "35%", zIndex: 10 }}
+            >
+              <PhotoWidget
+                src="/photos/jatinangor.jfif"
+                caption="i miss nangor:(("
+                rotation={2}
+              />
+            </div>
+            <IconGrid onOpenWindow={openWindow} />
+          </>
+        ) : (
+          // MOBILE
+          <div
+            className="flex flex-col"
+            style={{
+              paddingTop: 52,
+              paddingBottom: 120,
+              height: "100%",
+              overflow: "auto",
+            }}
           >
-            {getContent(w.id)}
-          </Window>
-        ))}
-      </AnimatePresence>
-    </main>
+            {/* Icon Grid */}
+            <div className="flex justify-center px-6 py-4">
+              <MobileIconGrid onOpenWindow={openWindow} />
+            </div>
+
+            {/* Top widgets — clock + music */}
+            <div className="flex items-start justify-between px-4 gap-3">
+              <MobileClockWidget />
+              <MusicWidget compact />
+            </div>
+
+            {/* Photos — vertikal, centered */}
+            <div className="flex flex-col items-center gap-3 px-4 py-2">
+              <PhotoWidget
+                src="/photos/cat.jpg"
+                caption="silly car 🐱"
+                rotation={-3}
+                size="small"
+              />
+              <PhotoWidget
+                src="/photos/jatinangor.jfif"
+                caption="i miss nangor:(("
+                rotation={2}
+                size="small"
+              />
+            </div>
+          </div>
+        )}
+
+        <SocialDock />
+      </main>
+
+      {mounted && createPortal(
+        <AnimatePresence>
+          {windows.filter((w) => w.isOpen).map((w) => (
+            <Window
+              key={w.id}
+              id={w.id}
+              title={windowTitles[w.id] || w.id}
+              position={w.position}
+              onClose={() => closeWindow(w.id)}
+              onUpdatePosition={updatePosition}
+            >
+              {getContent(w.id)}
+            </Window>
+          ))}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   );
 }

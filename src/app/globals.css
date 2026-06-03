@@ -26,6 +26,10 @@ body {
   to { transform: rotate(360deg); }
 }
 
+img {
+  transition: opacity 0.2s ease;
+}
+
 :root {
   --fa-sky: #4db8e8;
   --fa-sky-light: #87ceeb;
