@@ -225,7 +225,7 @@ export const projects: Project[] = [
   {
     id: "project-12",
     title: "Plugndd Front End Web",
-    description: "Front end website for PLUGNN Brand's DNA i've done with my teamgit .",
+    description: "Front end website for PLUGNN Brand's DNA i've done with my team.",
     category: "other",
     thumbnail: "/thumbnails/plugndd.png",
     year: "2026",
