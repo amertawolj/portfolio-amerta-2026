@@ -36,7 +36,7 @@ export default function Taskbar() {
           textShadow: "var(--icon-label-shadow)",
         }}
       >
-        Amerta's Portfolio
+        Amerta's Personal Space
       </span>
       <span
         className="text-sm"
